@@ -5,6 +5,7 @@ import { ChatWindow, type Message } from "./components/ChatWindow";
 import { ChatInput } from "./components/ChatInput";
 import { runInference } from "./data/inferenceEngine";
 import { AdminDashboard } from "./components/AdminDashboard";
+import { AdminLogin } from "./components/AdminLogin";
 
 let messageCounter = 0;
 const newId = () => `msg-${++messageCounter}-${Date.now()}`;
@@ -28,6 +29,10 @@ export default function App() {
   const [route, setRoute] = useState<"chat" | "admin">(
     window.location.pathname === "/admin" ? "admin" : "chat"
   );
+
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
+    return localStorage.getItem("admin_authenticated") === "true";
+  });
   
   const [backendOffline, setBackendOffline] = useState(false);
 
@@ -159,7 +164,17 @@ export default function App() {
 
         {/* View Switching */}
         {route === "admin" ? (
-          <AdminDashboard />
+          isAdminAuthenticated ? (
+            <AdminDashboard onLogout={() => {
+              localStorage.removeItem("admin_authenticated");
+              setIsAdminAuthenticated(false);
+            }} />
+          ) : (
+            <AdminLogin
+              onLoginSuccess={() => setIsAdminAuthenticated(true)}
+              onCancel={() => navigate("chat")}
+            />
+          )
         ) : (
           <main className="chat-panel" id="chat-panel">
             {/* Offline Alert Banner */}
