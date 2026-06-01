@@ -21,7 +21,9 @@ import {
   Settings2,
   Clock,
   Activity,
+  LogOut,
 } from "lucide-react";
+
 import { type TravelPackage } from "../data/knowledgeBase";
 
 interface Intent {
@@ -64,8 +66,13 @@ interface ModelMetrics {
   }>;
 }
 
-export function AdminDashboard() {
+interface AdminDashboardProps {
+  onLogout?: () => void;
+}
+
+export function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState<"packages" | "intents" | "model">("packages");
+
 
   // Data State
   const [packages, setPackages] = useState<TravelPackage[]>([]);
@@ -392,8 +399,25 @@ export function AdminDashboard() {
             <RefreshCw size={16} style={loading ? { animation: "spin 1s linear infinite" } : {}} />
             <span style={{ fontSize: 13, fontWeight: 600 }}>Refresh</span>
           </button>
+          
+          {onLogout && (
+            <button
+              onClick={onLogout}
+              style={{
+                ...styles.refreshBtn,
+                background: "rgba(239, 68, 68, 0.08)",
+                color: "#ef4444",
+                borderColor: "rgba(239, 68, 68, 0.2)",
+              }}
+              title="Log Out"
+            >
+              <LogOut size={16} />
+              <span style={{ fontSize: 13, fontWeight: 600 }}>Log Out</span>
+            </button>
+          )}
         </div>
       </div>
+
 
       {/* ── TAB BAR ── */}
       <div style={styles.tabBar}>
