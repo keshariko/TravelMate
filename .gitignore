@@ -1,3 +1,7 @@
+# ─────────────────────────────────────────────
+# Frontend (React / Vite / Node)
+# ─────────────────────────────────────────────
+
 # Logs
 logs
 *.log
@@ -12,11 +16,78 @@ dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# ─────────────────────────────────────────────
+# Backend (Python / FastAPI)
+# ─────────────────────────────────────────────
+
+# Python cache & compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.env.bak
+
+# Environment / secrets
+backend/.env
+.env
+*.env
+
+# Trained model files (large binaries)
+backend/model.pkl
+backend/models/*.pkl
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.pth
+*.onnx
+
+# Dataset files (can be large / regenerated)
+backend/dataset/
+
+# Generated reports & charts
+backend/reports/
+
+# FastAPI / Uvicorn
+*.pid
+
+# pytest
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# mypy / type checking
+.mypy_cache/
+.dmypy.json
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# ─────────────────────────────────────────────
+# Editor & OS
+# ─────────────────────────────────────────────
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
