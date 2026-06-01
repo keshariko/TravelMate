@@ -4,9 +4,11 @@ interface NavbarProps {
   darkMode: boolean;
   onToggleDark: () => void;
   onToggleSidebar: () => void;
+  currentRoute: "chat" | "admin";
+  onNavigate: (route: "chat" | "admin") => void;
 }
 
-export function Navbar({ darkMode, onToggleDark, onToggleSidebar }: NavbarProps) {
+export function Navbar({ darkMode, onToggleDark, onToggleSidebar, currentRoute, onNavigate }: NavbarProps) {
   return (
     <header className="navbar" id="navbar">
       <div className="navbar-left">
@@ -21,7 +23,7 @@ export function Navbar({ darkMode, onToggleDark, onToggleSidebar }: NavbarProps)
         </button>
 
         {/* Logo */}
-        <div className="navbar-brand">
+        <div className="navbar-brand cursor-pointer" onClick={() => onNavigate("chat")}>
           <div className="navbar-logo">
             <Plane size={20} className="logo-plane" />
           </div>
@@ -43,6 +45,19 @@ export function Navbar({ darkMode, onToggleDark, onToggleSidebar }: NavbarProps)
 
       {/* Right Actions */}
       <div className="navbar-right">
+        {/* Admin Navigation Button */}
+        <button
+          onClick={() => onNavigate(currentRoute === "chat" ? "admin" : "chat")}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+            currentRoute === "admin"
+              ? "bg-amber-500/10 border-amber-500/20 text-amber-600 dark:text-amber-400 hover:bg-amber-500/25"
+              : "bg-sky-500/10 border-sky-500/20 text-sky-600 dark:text-sky-400 hover:bg-sky-500/25"
+          }`}
+          id="admin-route-btn"
+        >
+          {currentRoute === "admin" ? "💬 Chatbot View" : "🛠️ Admin Panel"}
+        </button>
+
         <button
           className="navbar-icon-btn"
           title="Notifications"
